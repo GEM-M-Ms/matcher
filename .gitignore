@@ -114,3 +114,6 @@ media/
 # **/migrations/**
 # !**/migrations
 # !**/migrations/__init__.py
+
+# Ignore local settings
+matcher/local_settings.py
