@@ -21,14 +21,19 @@
           </defs>
           </svg>
       </div>
-      {% with request.resolver_match.url_name as url_name %}
-      <a class="{% if url_name == 'cohort_index'%}active{% endif %}" href="{% url 'cohort_index' %}">Dashboard</a>
-      <a href="#">Mentees</a>
-      <a href="#">Mentors</a>
-      <a href="#">Criteria Settings</a>
-      {% endwith %}
-      {% block sidebar %}
-      {% endblock %}
+
+      {% if user.is_authenticated %}
+        {% with request.resolver_match.url_name as url_name %}
+        <a class="{% if url_name == 'index'%}active{% endif %}" href="{% url 'index' %}">Dashboard</a>
+        <a href="#">Mentees</a>
+        <a href="#">Mentors</a>
+        <a href="#">Criteria Settings</a>
+        {% endwith %}
+        {% block sidebar %}
+        {% endblock %}
+
+        <a href="{% url 'logout' %}">Logout</a>
+      {% endif %}
     </nav>
     <main>
       {% block content %}
