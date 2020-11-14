@@ -14,7 +14,8 @@ def upload_file(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             handle_upload_files(request.FILES['file'])
-            return HttpResponseRedirect('/success/url/')
+            #redirect to success page
+            return HttpResponseRedirect('/matching')
     else:
         form = UploadFileForm()
     return render(request, 'upload.html', {'form': form})
