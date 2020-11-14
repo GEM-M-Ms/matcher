@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: 'Jost', sans-serif;;
+  font-family: 'Jost', sans-serif;
   margin: 0;
 }
 
@@ -60,8 +60,41 @@ nav a.active {
   font-weight: bolder;
 }
 
+.cohorts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 50px 0 50px;
+}
 
-#content {
-  margin-left: 210px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
+.cohort {
+  box-sizing: border-box;
+  width: 45%;
+  height: 150px;
+  margin: 10px 10px 10px 0;
+  border-radius: 10px;
+  border-color: #c4c4c4;
+  border-width: 2px;
+  border-style: solid;
+  padding: 40px 0 0 20px;
+}
+
+h1.title {
+  width: 100%;
+}
+
+.cohort a {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  padding-bottom: 15px;
+}
+
+.cohort a:visited {
+  color: var(--main-navy-color);
+}
+
+.cohort span {
+  color: var(--main-grey-color);
 }
