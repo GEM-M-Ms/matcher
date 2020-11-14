@@ -37,9 +37,8 @@ def upload_file(request):
 
     return render(request, 'upload.html', {'form': form})
 
+
 def cohort_index(request):
     cohorts = Cohort.objects.all()
-    context = {'cohorts': cohorts}
-    return render(request, 'cohorts/index.html', context)
-
-
+    context = {"cohorts": cohorts}
+    return render(request, "cohorts/index.html", context)
