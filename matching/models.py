@@ -37,9 +37,15 @@ class Match(models.Model):
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=PENDING)
     approver = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
 
+    class Meta:
+        verbose_name_plural = "Matches"
+
     def __str__(self):
         return f"Match(Mentor={self.mentor}, Mentee={self.mentee})"
 
 
 class Settings(models.Model):
     cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Settings"
