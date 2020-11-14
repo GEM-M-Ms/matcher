@@ -7,33 +7,60 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('matching', '0001_initial'),
+        ("matching", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Mentee',
+            name="Mentee",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('MenteeId', models.IntegerField()),
-                ('FName', models.TextField()),
-                ('LName', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("MenteeId", models.IntegerField()),
+                ("FName", models.TextField()),
+                ("LName", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='Mentor',
+            name="Mentor",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('MentorId', models.IntegerField()),
-                ('FName', models.TextField()),
-                ('LName', models.TextField()),
-                ('Industry', models.IntegerField()),
-                ('Pairing', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='matching.mentee')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("MentorId", models.IntegerField()),
+                ("FName", models.TextField()),
+                ("LName", models.TextField()),
+                ("Industry", models.IntegerField()),
+                (
+                    "Pairing",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="matching.mentee",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='mentee',
-            name='Pairing',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='matching.mentor'),
+            model_name="mentee",
+            name="Pairing",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="matching.mentor",
+            ),
         ),
     ]

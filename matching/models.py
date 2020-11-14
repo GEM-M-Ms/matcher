@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 class Cohort(models.Model):
     title = models.CharField(max_length=200)
+
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -11,11 +12,16 @@ class Cohort(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['-created_on']
+        ordering = ["-created_on"]
 
 
 class Mentor(models.Model):
     name = models.CharField(max_length=200)
+    email = models.EmailField(null=True)
+    other_attributes = models.JSONField(null=True)
+
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -23,6 +29,11 @@ class Mentor(models.Model):
 
 class Mentee(models.Model):
     name = models.CharField(max_length=200)
+    email = models.EmailField(null=True)
+    other_attributes = models.JSONField(null=True)
+
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -53,7 +64,8 @@ class Settings(models.Model):
     class Meta:
         verbose_name_plural = "Settings"
 
+
 class Document(models.Model):
-     description = models.CharField(max_length=255, blank=True)
-     document = models.FileField(upload_to='documents/')
-     uploaded_at = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to="documents/")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
