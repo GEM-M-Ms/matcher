@@ -10,14 +10,17 @@ class Cohort(models.Model):
         return self.title
 
 class Mentee(models.Model):
-    MenteeId = models.IntegerField()
     FName = models.TextField()
     LName = models.TextField()
     Pairing = models.ForeignKey("Mentor", on_delete=models.SET_NULL, null=True)
 
 class Mentor(models.Model):
-    MentorId = models.IntegerField()
     FName = models.TextField()
     LName = models.TextField()
     Industry = models.IntegerField()
     Pairing = models.ForeignKey("Mentee", on_delete=models.SET_NULL, null=True)
+
+class Document(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to='documents/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
