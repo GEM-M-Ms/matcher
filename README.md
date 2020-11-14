@@ -12,7 +12,7 @@ The GEM Matcher Service is a [`django`](https://www.djangoproject.com/) web appl
 
 To run locally install [Python](https://www.python.org/) and then install [`Pipenv`](https://github.com/pypa/pipenv) using `pip install pipenv`.
 
-Once installed run `pipenv sync` in the root directory to install the project dependencies.
+Once installed run `pipenv sync --dev` in the root directory to install the project dependencies.
 
 #### Database
 
@@ -47,3 +47,7 @@ Once the shell is activate the following commands should work:
 - `python manage.py migrate` to create database tables.
 - `python manage.py createsuperuser` to create an admin user.
 - `python manage.py runserver` to run the local development server.
+
+#### Reformatting code
+
+You can reformat the code by running `black .` in the `matcher` directory.
