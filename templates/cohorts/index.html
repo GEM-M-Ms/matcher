@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+<div class="cohorts">
+  <h1 class="title">All Cohorts</h1>
+  {% for cohort in cohorts %}
+  <div class="cohort">
+
+  <a href="#">{{ cohort.title }}</a>
+
+  <span>Last Updated {{ cohort.updated_on | date:"d/m/Y" }}</span>
+  </div>
+
+  {% empty %}
+
+  No cohorts found.
+
+  {% endfor %}
+</div>
+
+{% endblock %}

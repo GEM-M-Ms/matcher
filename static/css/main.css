@@ -1,0 +1,100 @@
+:root {
+  --main-navy-color: #113852;
+  --main-blue-color: #29c0ce;
+  --main-gold-color: #ebc072;
+  --main-red-color: #e56970;
+  --main-pink-color: #f6e2e9;
+  --main-grey-color: #707070;
+  --main-nav-color: #f9f8f5;
+}
+
+@font-face {
+  font-family: 'Jost';
+  src: local('Jost'), url('/static/fonts/Jost-VariableFont_wght.ttf') format('truetype');
+}
+
+body {
+  font-family: 'Jost', sans-serif;
+  margin: 0;
+}
+
+nav {
+  grid-area: nav;
+  margin-left: 0.5rem;
+  background-color: var(--main-nav-color);
+  height: 100vh;
+  margin: 0;
+  padding-left: 10px;
+}
+
+main {
+  grid-area: content;
+  height: 100vh;
+}
+
+.container {
+  display: grid;
+
+  grid-template-areas:
+    "nav content";
+
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+nav .logo {
+  margin: auto;
+  width: 250px;
+}
+
+nav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: var(--main-navy-color);
+  display: block;
+}
+
+nav a.active {
+  font-weight: bolder;
+}
+
+.cohorts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 50px 0 50px;
+}
+
+.cohort {
+  box-sizing: border-box;
+  width: 45%;
+  height: 150px;
+  margin: 10px 10px 10px 0;
+  border-radius: 10px;
+  border-color: #c4c4c4;
+  border-width: 2px;
+  border-style: solid;
+  padding: 40px 0 0 20px;
+}
+
+h1.title {
+  width: 100%;
+}
+
+.cohort a {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  padding-bottom: 15px;
+}
+
+.cohort a:visited {
+  color: var(--main-navy-color);
+}
+
+.cohort span {
+  color: var(--main-grey-color);
+}

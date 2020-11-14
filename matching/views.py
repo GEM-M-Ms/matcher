@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import UploadFileForm, ModelUploadFileForm
+from .forms import UploadFileForm
 from django.http import HttpResponseRedirect
 from .utils import handle_mentee_files, handle_mentor_files, handle_return_mentor_files
 from django.contrib import messages
-
+from .models import Cohort
 
 
 def index(request):
@@ -36,3 +36,10 @@ def upload_file(request):
         form = UploadFileForm()
 
     return render(request, 'upload.html', {'form': form})
+
+def cohort_index(request):
+    cohorts = Cohort.objects.all()
+    context = {'cohorts': cohorts}
+    return render(request, 'cohorts/index.html', context)
+
+

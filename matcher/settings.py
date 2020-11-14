@@ -99,8 +99,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # TO-DO: enhance redirect and reset link should be taken from logs
+
 LOGIN_REDIRECT_URL = "/"
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+EMAIL_BACKEND = "django_mailgun.MailgunBackend"
+MAILGUN_ACCESS_KEY = "c9a27dac203a68d20c60505120269780-ba042922-1b26a31c"
+MAILGUN_SERVER_NAME = "sandbox13beb5d9b86648e887d7484dd54ca0d4.mailgun.org"
+DEFAULT_FROM_EMAIL = "kramarv@yahoo.com"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -120,6 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+# Add these new lines
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
