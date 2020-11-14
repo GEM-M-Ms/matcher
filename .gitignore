@@ -117,3 +117,6 @@ media/
 
 # Ignore local settings
 matcher/local_settings.py
+
+# Ignore local Postgres volume
+db-data/
