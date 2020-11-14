@@ -8,3 +8,16 @@ class Cohort(models.Model):
 
     def __str__(self):
         return self.title
+
+class Mentee(models.Model):
+    MenteeId = models.IntegerField()
+    FName = models.TextField()
+    LName = models.TextField()
+    Pairing = models.ForeignKey("Mentor", on_delete=models.SET_NULL, null=True)
+
+class Mentor(models.Model):
+    MentorId = models.IntegerField()
+    FName = models.TextField()
+    LName = models.TextField()
+    Industry = models.IntegerField()
+    Pairing = models.ForeignKey("Mentee", on_delete=models.SET_NULL, null=True)
