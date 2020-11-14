@@ -104,6 +104,7 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 MAILGUN_ACCESS_KEY = 'c9a27dac203a68d20c60505120269780-ba042922-1b26a31c'
 MAILGUN_SERVER_NAME = 'sandbox13beb5d9b86648e887d7484dd54ca0d4.mailgun.org'
+DEFAULT_FROM_EMAIL ='kramarv@yahoo.com'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
