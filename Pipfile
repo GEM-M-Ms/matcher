@@ -11,6 +11,7 @@ django = "*"
 gunicorn = "*"
 django-heroku = "*"
 dj-database-url = "*"
+django-mailgun = "*"
 
 [requires]
 python_version = "3.8"
