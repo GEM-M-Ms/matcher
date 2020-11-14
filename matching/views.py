@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
+from .models import Cohort
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+def cohort_index(request):
+    cohorts = Cohort.objects.all()
+    context = {'cohorts': cohorts}
+    return render(request, 'cohorts/index.html', context)

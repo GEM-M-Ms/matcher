@@ -10,6 +10,9 @@ class Cohort(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['-created_on']
+
 
 class Mentor(models.Model):
     name = models.CharField(max_length=200)
