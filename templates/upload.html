@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'base_generic.html' %}
+
+{% load static %}
+
+{% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+{% endif %}
+
+
+
+{% block content %}
+<p> Please Upload a CSV File For Mentee, Mentor, or Returning Mentor Applications</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="mentee">Upload Mentee</button>
+    <button type="submit" name="mentor">Upload Mentor</button>
+    <button type="submit" name="mentor_return">Upload Existing Mentor</button>
+
+  </form>
+
+  <p><a href="{% url 'login' %}">Return to Home</a></p>
+{% endblock %}
