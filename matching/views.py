@@ -44,4 +44,4 @@ def upload_file(request):
         messages.error(request, "File is not CSV type")
         form = UploadFileForm()
 
-    return render(request, "upload.html", {"form": form})
+    return render(request, "forms/upload.html", {"form": form})

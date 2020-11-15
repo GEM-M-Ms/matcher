@@ -16,7 +16,7 @@
 
 
 {% block content %}
-<p> Please Upload a CSV File For Mentee, Mentor, or Returning Mentor Applications</p>
+<p>Please Upload a CSV File For Mentee, Mentor, or Returning Mentor Applications</p>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
