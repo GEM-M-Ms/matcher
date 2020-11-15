@@ -34,10 +34,16 @@
     {% endif %}
           </div>
         </div>
-
+<!-- 
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %} -->
     <p><a href="{% url 'login' %}">Return to Home</a></p>
   </div>
-
 </div>
 
 {% endblock %}
