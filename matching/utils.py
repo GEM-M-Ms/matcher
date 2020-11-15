@@ -1,21 +1,44 @@
 import csv
 import io
+import re
 
-def convert_to_dicts(uploaded_file):
+from .models import Mentee, Mentor
+
+def convert_to_model_params(uploaded_file):
     file_bytes = uploaded_file.read().decode('utf-8')
     reader = csv.DictReader(io.StringIO(file_bytes))
-    return [line for line in reader]
+    data = [line for line in reader]
+    records = []
+    for row in data:
+        name = f"{row['First Name']} {row['Last Name']}"
+        email = row["Email Address"]
+        attributes = {}
 
-def handle_mentee_files(uploaded_file):
-    data = convert_to_dicts(uploaded_file)
-    print(data)
+        for key, value in row.items():
+            if re.search(r'\d', key):
+                numberless_key = re.sub(" \d+", "", key)
+                attr_array = attributes.get(numberless_key, [])
+                if value:
+                    attr_array.append(value)
+                attributes[numberless_key] = attr_array
+            else:
+                attributes[key] = value
+        records.append((name, email, attributes))
+    return records
 
+def handle_mentee_files(uploaded_file, cohort):
+    records = convert_to_model_params(uploaded_file)
 
-def handle_mentor_files(uploaded_file):
-    convert_to_dicts(uploaded_file)
-    print(data)
+    for record in records:
+        name, email, attributes = record
+        mentee = Mentee(name=name, email=email, cohort=cohort, other_attributes=attributes)
+        mentee.save()
 
+def handle_mentor_files(uploaded_file, cohort):
+    records = convert_to_model_params(uploaded_file)
 
-def handle_return_mentor_files(uploaded_file):
-    convert_to_dicts(uploaded_file)
-    print(data)
+    for record in records:
+        name, email, attributes = record
+        mentor = Mentor(name=name, email=email, cohort=cohort, other_attributes=attributes)
+        mentor.save()
+
