@@ -7,15 +7,18 @@ from .utils import handle_mentee_files, handle_mentor_files, handle_return_mento
 from .models import Cohort
 from .forms import UploadFileForm
 
+
 @login_required
 def index(request):
     cohorts = Cohort.objects.all()
     return render(request, "cohorts/index.html", {"cohorts": cohorts})
 
+
 @login_required
 def show(request, cohort_id):
     cohort = get_object_or_404(Cohort, pk=cohort_id)
     return render(request, "cohorts/show.html", {"cohort": cohort})
+
 
 @login_required
 def upload(request):
@@ -29,7 +32,7 @@ def upload(request):
                 handle_mentor_files(request.FILES["file"])
             elif "mentor_return" in request.POST:
                 handle_return_mentor_files(request.FILES["file"])
-            messages.success(request, 'File successfully uploaded.')
+            messages.success(request, "File successfully uploaded.")
             return redirect(reverse("upload"))
         else:
             messages.error(request, "File is not CSV type")
