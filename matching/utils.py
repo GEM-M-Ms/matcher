@@ -19,7 +19,8 @@ def handle_file(variables_file):
 
     for dict_line in dict_list:
         print(dict_line["Personal Email Address"])
-        mentor = Mentor(name=dict_line["First Name"] + " " + dict_line["Last Name"], email=dict_line["Personal Email Address"], other_attributes={})
+        print(json.dumps(dict_line))
+        mentor = Mentor(name=dict_line["First Name"] + " " + dict_line["Last Name"], email=dict_line["Personal Email Address"], other_attributes=json.dumps(dict_line))
         mentor.save()
 
 
