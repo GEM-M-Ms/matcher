@@ -28,7 +28,7 @@ def handle_return_mentor_files(uploaded_file):
     print(data)
 
 def get_json(name,l):
-    s="{\""+name+"\""+ json.dumps(l) + "}"
+    s="{\""+name+"\":\""+json.dumps(l) + "}"
     print(s)
     return s
 
