@@ -60,7 +60,9 @@ You can reformat the code by running `black .` in the `matcher` directory.
 #### When use free domain sandbox13beb5d9b86648e887d7484dd54ca0d4.mailgun.org
      add emails as trusted in dashboard https://app.mailgun.com/app/dashboard
      
-#### Oherwise create own subdomain and edit settings below
+#### Oherwise create own subdomain
+
+#### Edit settings below as appropriate
 
     MAILGUN_ACCESS_KEY = '...'
     MAILGUN_SERVER_NAME = '...'
