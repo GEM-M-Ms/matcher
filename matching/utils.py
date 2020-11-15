@@ -6,6 +6,10 @@ from .models import Mentee
 import numpy as np
 import re
 
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
+from sortedcontainers import SortedList
+
 
 def convert_to_dicts(uploaded_file):
     file_bytes = uploaded_file.read().decode("utf-8")
@@ -54,10 +58,12 @@ def handle_return_mentor_files(uploaded_file):
 
 def match_mentor(m):
     w1 = "Racial Discrimination"
+    min_ratio=0
 
     y = json.loads(m.other_attributes)
     sw1 = y[w1]
 
+    l = SortedList()
     for mr in Mentor.objects.all():
         jsonString = mr.other_attributes
         print("=================")
@@ -66,4 +72,11 @@ def match_mentor(m):
         zw1 = z[w1]
         print(sw1)
         print(zw1)
-        print(sw1==zw1)
+        ratio=fuzz.ratio(sw1,zw1)
+        print(ratio)
+        if ratio > min_ratio:
+            min_ratio = ratio
+            #sortedcontainers insertion sort works in O(log n)
+            #add to container {ratio,mentor}
+            l.add(ratio,mr)
+
