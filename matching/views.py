@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -11,8 +11,12 @@ from .forms import UploadFileForm
 @login_required
 def index(request):
     cohorts = Cohort.objects.all()
-    context = {"cohorts": cohorts}
-    return render(request, "cohorts/index.html", context)
+    return render(request, "cohorts/index.html", {"cohorts": cohorts})
+
+@login_required
+def show(request, cohort_id):
+    cohort = get_object_or_404(Cohort, pk=cohort_id)
+    return render(request, "cohorts/show.html", {"cohort": cohort})
 
 @login_required
 def upload_file(request):

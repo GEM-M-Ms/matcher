@@ -6,7 +6,7 @@
   {% for cohort in cohorts %}
   <div class="cohort">
 
-  <a href="#">{{ cohort.title }}</a>
+  <a href="{% url 'show_cohort' cohort.id %}">{{ cohort.title }}</a>
 
   <span>Last Updated {{ cohort.updated_on | date:"d/m/Y" }}</span>
   </div>
