@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "matching.apps.MatchingConfig",
+    "django_json_widget",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
