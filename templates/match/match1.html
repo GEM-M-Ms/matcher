@@ -5,25 +5,24 @@
   <h1 class="title">Matching</h1>
   <div class="matches">
 
-    {% if context_dict.test %}
-            <ul>
-              Test Values
-                {% for value in context_dict.test %}
-                <li>{{ value }}</li>
-                {% endfor %}
-            </ul>
-    <!-- Above to be deleted once data is in place -->
-
+<div style="width: 100%; overflow: hidden;">
+  <div style="width: 600px; float: left;"> 
     
-    {% elif context_dict.mentee_list %}
     <p>Mentees</p>
+    {% if context_dict.mentee_list %}
             <ul>
               {% for mentee in context_dict.mentee_list %}
               <li>{{ mentee.name }}</li>
               {% endfor %}
             </ul>
+        {% else %}
+        <strong>There are no people present.</strong>
+        {% endif %}
+        </div>
+
+  <div style="margin-left: 620px;"> 
     <p>Mentors</p>
-    {% elif context_dict.mentor_list %}
+    {% if context_dict.mentor_list %}
           <ul>
             {% for mentor in context_dict.mentor_list %}
             <li>{{ mentor.name }}</li>
@@ -33,6 +32,8 @@
         {% else %}
             <strong>There are no people present.</strong>
     {% endif %}
+          </div>
+        </div>
 
     <p><a href="{% url 'login' %}">Return to Home</a></p>
   </div>
