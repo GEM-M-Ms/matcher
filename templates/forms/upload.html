@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
 {% extends 'base_generic.html' %}
 
 {% load static %}
+
+{% block content %}
 
 {% if messages %}
   <ul class="messages">
@@ -13,9 +12,6 @@
   </ul>
 {% endif %}
 
-
-
-{% block content %}
 <p>Please Upload a CSV File For Mentee, Mentor, or Returning Mentor Applications</p>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
