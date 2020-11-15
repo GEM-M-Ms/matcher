@@ -102,10 +102,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_REDIRECT_URL = "/"
 
-EMAIL_BACKEND = "django_mailgun.MailgunBackend"
-MAILGUN_ACCESS_KEY = "c9a27dac203a68d20c60505120269780-ba042922-1b26a31c"
-MAILGUN_SERVER_NAME = "sandbox13beb5d9b86648e887d7484dd54ca0d4.mailgun.org"
-DEFAULT_FROM_EMAIL = "kramarv@yahoo.com"
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = "django_mailgun.MailgunBackend"
+#MAILGUN_ACCESS_KEY = "replace"
+#MAILGUN_SERVER_NAME = "replace"
+#DEFAULT_FROM_EMAIL = "replace"
+
 
 
 # Internationalization
