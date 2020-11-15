@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from .utils import handle_mentee_files, handle_mentor_files, handle_return_mentor_files
-from .models import Cohort
+from .models import Cohort, Mentee, Mentor
 from .forms import UploadFileForm
 
 @login_required
@@ -16,6 +16,14 @@ def index(request):
 def show(request, cohort_id):
     cohort = get_object_or_404(Cohort, pk=cohort_id)
     return render(request, "cohorts/show.html", {"cohort": cohort})
+
+@login_required
+def show_matching1(request): 
+    #TODO:need cohort ID to get exact subset?
+    mentee_list = Mentee.objects.all()
+    mentor_list = Mentor.objects.all()
+    context_dict = {'Mentees': mentee_list, 'Mentors':mentor_list, 'test': [1,2,3]}
+    return render(request, "match/match1.html", {"context_dict":context_dict})
 
 @login_required
 def upload(request):
