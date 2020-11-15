@@ -18,13 +18,6 @@ class Cohort(models.Model):
 class Mentor(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField(null=True)
-    career = models.CharField(max_length=200)
-    area = models.CharField(max_length=200)
-    personality = models.JSONField(null=True, blank=True)
-    hobbies = models.JSONField(null=True, blank=True)
-    religius_identity = models.JSONField(null=True, blank=True)
-    education = models.JSONField(null=True, blank=True)
-
 
     other_attributes = models.JSONField(null=True, blank=True)
 
