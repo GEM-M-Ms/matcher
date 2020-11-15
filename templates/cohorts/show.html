@@ -1,8 +1,27 @@
 {% extends "base_generic.html" %}
 {% block content %}
 
-<div class="cohorts">
+<div class="matches">
   <h1 class="title">{{ cohort.title }}</h1>
+
+  <table>
+    <thead>
+      <th>Mentee</th>
+      <th>Mentor</th>
+      <th>Status</th>
+      <th>Approver</th>
+    </thead>
+    <tbody>
+      {% for match in cohort.match_set.all %}
+      <tr>
+        <td>{{ match.mentee.name }}</td>
+        <td>{{ match.mentor.name }}</td>
+        <td>{{ match.get_status_display }}</td>
+        <td>{{ match.approver.username }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 
 {% endblock %}
