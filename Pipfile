@@ -13,6 +13,7 @@ gunicorn = "*"
 django-heroku = "*"
 dj-database-url = "*"
 django-mailgun = "*"
+django-json-widget = "*"
 
 [requires]
 python_version = "3.8"

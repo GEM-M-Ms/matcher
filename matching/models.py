@@ -20,6 +20,8 @@ class Mentor(models.Model):
     email = models.EmailField(null=True)
     other_attributes = models.JSONField(null=True, blank=True)
 
+    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, null=True)
+
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -31,6 +33,8 @@ class Mentee(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField(null=True)
     other_attributes = models.JSONField(null=True, blank=True)
+
+    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, null=True)
 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
