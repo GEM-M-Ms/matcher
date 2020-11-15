@@ -32,7 +32,6 @@ def show_matching1(request):
     return render(request, "match/match1.html", {"context_dict":context_dict})
 
 @login_required
-def upload(request):
 def upload(request, cohort_id):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
