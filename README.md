@@ -62,7 +62,7 @@ You can reformat the code by running `black .` in the `matcher` directory.
      
 #### Oherwise create own subdomain
 
-#### Edit settings below as appropriate
+#### Add settings as appropriate
 
     MAILGUN_ACCESS_KEY = '...'
     MAILGUN_SERVER_NAME = '...'
