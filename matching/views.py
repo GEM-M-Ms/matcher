@@ -1,6 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -19,29 +18,21 @@ def show(request, cohort_id):
     return render(request, "cohorts/show.html", {"cohort": cohort})
 
 @login_required
-def upload_file(request):
+def upload(request):
     if request.method == "POST":
-
         form = UploadFileForm(request.POST, request.FILES)
 
-        if form.is_valid() and "mentee" in request.POST:
-            # file is saved
-            handle_mentee_files(request.FILES["file"])
-            # redirect to success page
-            return HttpResponseRedirect("/matching/data-upload")
-
-        elif form.is_valid() and "mentor" in request.POST:
-            # file is saved
-            handle_mentor_files(request.FILES["file"])
-            # redirect to success page
-            return HttpResponseRedirect("/matching/data-upload")
-        elif form.is_valid() and "mentor_return" in request.POST:
-            # file is saved
-            handle_return_mentor_files(request.FILES["file"])
-            # redirect to success page
-            return HttpResponseRedirect("/matching/data-upload")
+        if form.is_valid():
+            if "mentee" in request.POST:
+                handle_mentee_files(request.FILES["file"])
+            elif "mentor" in request.POST:
+                handle_mentor_files(request.FILES["file"])
+            elif "mentor_return" in request.POST:
+                handle_return_mentor_files(request.FILES["file"])
+            messages.success(request, 'File successfully uploaded.')
+            return redirect(reverse("upload"))
+        else:
+            messages.error(request, "File is not CSV type")
     else:
-        messages.error(request, "File is not CSV type")
         form = UploadFileForm()
-
     return render(request, "forms/upload.html", {"form": form})
