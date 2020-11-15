@@ -1,0 +1,49 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+<div class="cohorts">
+  <h1 class="title">Matching</h1>
+  <div class="matches">
+
+<div style="width: 100%; overflow: hidden;">
+  <div style="width: 600px; float: left;"> 
+    
+    <p>Mentees</p>
+    {% if context_dict.mentee_list %}
+            <ul>
+              {% for mentee in context_dict.mentee_list %}
+              <li>{{ mentee.name }}</li>
+              {% endfor %}
+            </ul>
+        {% else %}
+        <strong>There are no people present.</strong>
+        {% endif %}
+        </div>
+
+  <div style="margin-left: 620px;"> 
+    <p>Mentors</p>
+    {% if context_dict.mentor_list %}
+          <ul>
+            {% for mentor in context_dict.mentor_list %}
+            <li>{{ mentor.name }}</li>
+            {% endfor %}
+          </ul>
+
+        {% else %}
+            <strong>There are no people present.</strong>
+    {% endif %}
+          </div>
+        </div>
+<!-- 
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %} -->
+    <p><a href="{% url 'login' %}">Return to Home</a></p>
+  </div>
+</div>
+
+{% endblock %}
