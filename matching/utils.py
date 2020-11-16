@@ -8,7 +8,8 @@ import re
 
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
-from sortedcontainers import SortedList
+from collections import namedtuple
+from operator import itemgetter, attrgetter
 
 
 def convert_to_dicts(uploaded_file):
@@ -57,26 +58,32 @@ def handle_return_mentor_files(uploaded_file):
 
 
 def match_mentor(m):
-    w1 = "Racial Discrimination"
+    w1 = "Current Industry"
     min_ratio=0
 
     y = json.loads(m.other_attributes)
     sw1 = y[w1]
 
-    l = SortedList()
+    l = []
     for mr in Mentor.objects.all():
         jsonString = mr.other_attributes
-        print("=================")
-        print(mr.email)
         z = json.loads(jsonString)
         zw1 = z[w1]
         print(sw1)
         print(zw1)
         ratio=fuzz.ratio(sw1,zw1)
-        print(ratio)
+
+        Entry = namedtuple('Entry','r m')
+        entry = Entry(ratio,mr)
+
         if ratio > min_ratio:
             min_ratio = ratio
-            #sortedcontainers insertion sort works in O(log n)
-            #add to container {ratio,mentor}
-            l.add(ratio,mr)
+        l.append(entry)
+
+    l.sort(key=attrgetter('r'))
+    print(l)
+    #return list tuples or list of mentors
+
+
+
 
