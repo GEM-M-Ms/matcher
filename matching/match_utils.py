@@ -32,7 +32,7 @@ def calculate_diff(m):
     for wr in matching_fields:
       menteeValue = menteeAttr[wr]
       mentorValue = mentorAttr[wr]
-      ratio=fuzz.ratio(menteeValue,mentorValue)
+      ratio=fuzz.token_set_ratio(menteeValue,mentorValue)
       mentor_ratio+=ratio
 
     mentor_ratio/= len(matching_fields)
