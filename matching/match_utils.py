@@ -19,8 +19,13 @@ Bus_mentees = Mentee.objects.raw('SELECT * FROM matching_mentee WHERE Career_Fie
 Bus_mentors = Mentor.objects.raw('SELECT * FROM matching_mentee WHERE Career_Field in %s', [business_jobs])
 
 
-#differense between mentee and mentor
-matching_fields = ['Hobbies','Barriers']
+#diff between mentee and mentor
+
+matching_fields = [
+  ('Hobbies', 'Hobbies', 1.),
+  ('Barriers', 'Barriers', 1.),
+]
+
 
 def calculate_diff(m):
   menteeAttr = m.other_attributes
@@ -29,11 +34,14 @@ def calculate_diff(m):
     mentor_ratio=0
     mentorAttr = mr.other_attributes
 
-    for wr in matching_fields:
-      menteeValue = menteeAttr[wr]
-      mentorValue = mentorAttr[wr]
+    for tpl in matching_fields:
+      print(tpl[0])
+      print(tpl[1])
+      print(tpl[2])
+      menteeValue = menteeAttr[tpl[0]]
+      mentorValue = mentorAttr[tpl[1]]
       ratio=fuzz.token_set_ratio(menteeValue,mentorValue)
-      mentor_ratio+=ratio
+      mentor_ratio+=ratio*tpl[2]
 
     mentor_ratio/= len(matching_fields)
     Entry = namedtuple('Entry','r m')
