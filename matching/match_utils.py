@@ -3,7 +3,7 @@ from fuzzywuzzy import process
 from collections import namedtuple
 from operator import  attrgetter
 
-from .models import Mentee, Mentor
+from .models import Mentee, Mentor, MatchConfig
 
 
 #Health and Medicine
@@ -26,24 +26,28 @@ matching_fields = [
   ('Barriers', 'Barriers', 1.),
 ]
 
+def ensure_match_config():
+  if (MatchConfig.objects.all().count() == 0):
+    for tpl in matching_fields:
+      matchEntry = MatchConfig(mentee_column_name=tpl[0], mentor_column_name=tpl[1], weight=tpl[2])
+      matchEntry.save()
+  return MatchConfig.objects.all()
 
 def calculate_diff(m):
   menteeAttr = m.other_attributes
+  matchConfigs = ensure_match_config()
   l = []
   for mr in Mentor.objects.all():
     mentor_ratio=0
     mentorAttr = mr.other_attributes
 
-    for tpl in matching_fields:
-      print(tpl[0])
-      print(tpl[1])
-      print(tpl[2])
-      menteeValue = menteeAttr[tpl[0]]
-      mentorValue = mentorAttr[tpl[1]]
+    for tpl in matchConfigs:
+      menteeValue = menteeAttr[tpl.mentee_column_name]
+      mentorValue = mentorAttr[tpl.mentor_column_name]
       ratio=fuzz.token_set_ratio(menteeValue,mentorValue)
-      mentor_ratio+=ratio*tpl[2]
+      mentor_ratio+=ratio*tpl.weight
 
-    mentor_ratio/= len(matching_fields)
+    mentor_ratio/= len(matchConfigs)
     Entry = namedtuple('Entry','r m')
     entry = Entry(mentor_ratio,mr)
     l.append(entry)
