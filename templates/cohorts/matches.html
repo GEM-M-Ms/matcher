@@ -9,29 +9,31 @@
 {% endblock %}
 
 {% block content %}
-<div class="matches">
-  <h1 class="title">{{ cohort.title }}</h1>
-
-  <a href="{% url 'upload' cohort.id %}">Upload Mentors and Mentees</a>
-
+<div class="mentees">
+  <h1 class="title">Matches for Cohort {{ cohort.title }}</h1>
+  {% if matches %}
   <table>
     <thead>
-      <th>Mentee</th>
+      <th>ID</th>
       <th>Mentor</th>
+      <th>Mentee</th>
       <th>Status</th>
       <th>Approver</th>
     </thead>
     <tbody>
-      {% for match in cohort.match_set.all %}
+      {% for match in matches %}
       <tr>
-        <td>{{ match.mentee.name }}</td>
-        <td>{{ match.mentor.name }}</td>
-        <td>{{ match.get_status_display }}</td>
-        <td>{{ match.approver.username }}</td>
+        <td>{{ mentee.id }}</td>
+        <td>{{ mentee.mentor }}</td>
+        <td>{{ mentee.mentee }}</td>
+        <td>{{ mentee.status }}</td>
+        <td>{{ mentee.approver }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  {% else %}
+  <h2>No matches found.</h2>
+  {% endif %}
 </div>
-
 {% endblock %}

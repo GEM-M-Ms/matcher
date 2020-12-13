@@ -25,9 +25,6 @@
       {% if user.is_authenticated %}
         {% with request.resolver_match.url_name as url_name %}
         <a class="{% if url_name == 'index_cohort' %}active{% endif %}" href="{% url 'index_cohort' %}">Dashboard</a>
-        <a href="{% url 'show_matching1'%}">Mentees</a>
-        <a href="{% url 'show_matching1'%}">Mentors</a>
-        <a href="#">Criteria Settings</a>
         {% endwith %}
         {% block sidebar %}
         {% endblock %}
