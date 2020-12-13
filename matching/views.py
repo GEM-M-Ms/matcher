@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Cohort, Mentee, Mentor
+from .models import Cohort, Mentee, Mentor, Match
 from .utils import handle_mentee_files, handle_mentor_files
 from .forms import UploadFileForm
 
@@ -18,18 +18,22 @@ def show(request, cohort_id):
     return render(request, "cohorts/show.html", {"cohort": cohort})
 
 @login_required
-def show_matching1(request): 
-    if 'cohort_id' in request.session:
-        cohort_id = request.session['cohort_id']
-        mentee_list = Mentee.objects.get(cohort_id=cohort_id)
-        mentor_list = Mentor.objects.get(cohort_id=cohort_id)
-    else: 
-        messages.warning(request, 'To narrow your findings, please select a cohort from the main page')
-        mentee_list = Mentee.objects.all()
-        mentor_list = Mentor.objects.all()
+def show_matches(request, cohort_id):
+    cohort = get_object_or_404(Cohort, pk=cohort_id)
+    matches = Match.objects.filter(cohort=cohort)
+    return render(request, "cohorts/matches.html", {"cohort": cohort, "matches": matches})
 
-    context_dict = {'Mentees': mentee_list, 'Mentors':mentor_list}
-    return render(request, "match/match1.html", {"context_dict":context_dict})
+@login_required
+def show_mentees(request, cohort_id):
+    cohort = get_object_or_404(Cohort, pk=cohort_id)
+    mentees = Mentee.objects.filter(cohort=cohort)
+    return render(request, "cohorts/mentees.html", {"cohort": cohort, "mentees": mentees})
+
+@login_required
+def show_mentors(request, cohort_id):
+    cohort = get_object_or_404(Cohort, pk=cohort_id)
+    mentors = Mentor.objects.filter(cohort=cohort)
+    return render(request, "cohorts/mentors.html", {"cohort": cohort, "mentors": mentors})
 
 @login_required
 def upload(request, cohort_id):

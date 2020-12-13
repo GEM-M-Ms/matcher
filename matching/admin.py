@@ -10,12 +10,14 @@ admin.site.register(Settings)
 
 @admin.register(Mentor)
 class MentorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'cohort')
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
     }
 
 @admin.register(Mentee)
 class MenteeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'cohort')
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
     }
