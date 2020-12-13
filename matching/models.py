@@ -73,3 +73,14 @@ class Document(models.Model):
     description = models.CharField(max_length=255, blank=True)
     document = models.BinaryField()
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+class MatchConfig(models.Model):
+    mentee_column_name = models.CharField(max_length=200)
+    mentor_column_name = models.CharField(max_length=200)
+    weight = models.FloatField()
+
+    def __str__(self):
+        return f"{self.mentee_column_name} {self.mentor_column_name} {self.weight}"
+
+    class Meta:
+        verbose_name_plural = "MatchConfig"

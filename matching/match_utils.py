@@ -3,7 +3,7 @@ from fuzzywuzzy import process
 from collections import namedtuple
 from operator import  attrgetter
 
-from .models import Mentee, Mentor
+from .models import Mentee, Mentor, MatchConfig
 
 
 #Health and Medicine
@@ -19,23 +19,35 @@ Bus_mentees = Mentee.objects.raw('SELECT * FROM matching_mentee WHERE Career_Fie
 Bus_mentors = Mentor.objects.raw('SELECT * FROM matching_mentee WHERE Career_Field in %s', [business_jobs])
 
 
-#differense between mentee and mentor
-matching_fields = ['Hobbies','Barriers']
+#diff between mentee and mentor
+
+matching_fields = [
+  ('Hobbies', 'Hobbies', 1.),
+  ('Barriers', 'Barriers', 1.),
+]
+
+def ensure_match_config():
+  if (MatchConfig.objects.all().count() == 0):
+    for tpl in matching_fields:
+      matchEntry = MatchConfig(mentee_column_name=tpl[0], mentor_column_name=tpl[1], weight=tpl[2])
+      matchEntry.save()
+  return MatchConfig.objects.all()
 
 def calculate_diff(m):
   menteeAttr = m.other_attributes
+  matchConfigs = ensure_match_config()
   l = []
   for mr in Mentor.objects.all():
     mentor_ratio=0
     mentorAttr = mr.other_attributes
 
-    for wr in matching_fields:
-      menteeValue = menteeAttr[wr]
-      mentorValue = mentorAttr[wr]
+    for tpl in matchConfigs:
+      menteeValue = menteeAttr[tpl.mentee_column_name]
+      mentorValue = mentorAttr[tpl.mentor_column_name]
       ratio=fuzz.token_set_ratio(menteeValue,mentorValue)
-      mentor_ratio+=ratio
+      mentor_ratio+=ratio*tpl.weight
 
-    mentor_ratio/= len(matching_fields)
+    mentor_ratio/= len(matchConfigs)
     Entry = namedtuple('Entry','r m')
     entry = Entry(mentor_ratio,mr)
     l.append(entry)
