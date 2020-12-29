@@ -7,16 +7,60 @@ from .models import Mentee, Mentor, MatchConfig
 
 
 #Health and Medicine
-health_jobs = ['Alternative Medicine', 'Biotechnology', 'Hospital and Healthcare', 'Medical Practice' ,'Mental Health Care' ,'Pharmaceuticals' ,'Veterinary ']
-
-Health_mentees = Mentee.objects.raw('SELECT * FROM matching_mentee WHERE Career_Field in %s', [health_jobs])
-Health_mentors = Mentor.objects.raw('SELECT * FROM matching_mentee WHERE Career_Field in %s', [health_jobs])
-
+health_jobs = ['Alternative Medicine', 'Biotechnology', 'Hospital and Healthcare', 'Medical Practice' ,'Mental Health Care' ,'Pharmaceuticals' ,'Veterinary']
 #Business
-
 business_jobs = ['Accounting','Banking', 'Capital Markets', 'Entrepreneurship', 'Financial Services', 'Human Resources','Insurance', 'Investment Banking/Management', 'Management Consulting', 'Marketing and Advertising', 'Market Research', 'Venture Capital and Private Equity']
-Bus_mentees = Mentee.objects.raw('SELECT * FROM matching_mentee WHERE Career_Field in %s', [business_jobs])
-Bus_mentors = Mentor.objects.raw('SELECT * FROM matching_mentee WHERE Career_Field in %s', [business_jobs])
+#Urban Design
+urban_jobs = ['Architecture/Planning','Civil Engineering']
+#IT
+it_jobs=['Graphic Design ','Information technology and Services']
+#Social Services
+social_jobs = ['Civil/Social Organization','Fundraising','Non-profit Organization Management','Philanthropy','Program Development','Social Work']
+#Real Estate
+real_estate_jobs = ['Commercial Real Estate','Real estate']
+#Military
+military_jobs = ['Defence and Space','Military']
+#Education
+education_jobs = ['Education','Higher Education','Libraries','Museums and Institutions','Research']
+#Sales/Goods and Services
+sales_jobs = ['Business Supplies and Equipment','Consumer Electronics','Consumer Goods and Services','Cosmetics','Farming','Furniture','Import and Export','Retail','Supermarkets']
+#Service Industry
+service_jobs = ['Gambling and Casinos','Hospitality','Leisure, Travel and Tourism','Restaurants']
+#Creative/Media
+creative_media_jobs = ['Animation','Apparel/Fashion','Arts (Visual)','Broadcast Media','Entertainment','Events Services','Film Production','Motion Pictures and Film','Music','Newspapers','Performing Arts','Photography','Publishing','Public Relations and Communications','Telecommunications','Writing and Editing']
+#Government/Foreign Affairs
+government_foreign_jobs = ['Executive Office','Government Administration','Government Relations','International Affairs','International Trade and Development','Legislative Office','Political Organization','Public Policy']
+#Legal
+legal_jobs = ['Judiciary','Law (Practice)']
+#Law Enforcement
+law_enforcement_jobs = ['Law Enforcement','Security and Investigations']
+#Professional Sports/Fitness
+sports_fitness_jobs = ['Health, Wellness and Fitness','Professional Training and Coaching','Recreational Facilities and Services','Sporting Goods']
+#Industrial Production
+industrial_production_jobs = ['Automotive','Building Materials','Chemicals','Glass, Ceramics, and Concrete','Industrial Automation','Logistics and Supply Chain','Mechanical or Industrial Engineering','Oil and Energy','Renewables and Environment']
+#Miscellaneous
+misc_jobs = ['Miscellaneous','Maritime','Religious Institutions','Translation and Localization']
+
+
+#industry_types
+industry_types = [
+  ('HEALTH',health_jobs),
+  ('BUSINESS',business_jobs),
+  ('URBAN',urban_jobs),
+  ('IT',it_jobs),
+  ('SOCIAL',social_jobs),
+  ('REAL_ESTATE',real_estate_jobs),
+  ('MILITARY',military_jobs),
+  ('EDUCATION',education_jobs),
+  ('SALES',sales_jobs),
+  ('SERVICE',service_jobs),
+  ('CREATIVE_MEDIA',creative_media_jobs),
+  ('GOVERNMENT_FOREGIN_AFFAIRS',government_foreign_jobs),
+  ('LEGAL',legal_jobs),
+  ('LAW_ENFIRCEMENT',law_enforcement_jobs),
+  ('SPORTS_FITNESS',sports_fitness_jobs),
+  ('INDUSTRIAL',industrial_production_jobs),
+  ('MISC',misc_jobs)
 
 
 #diff between mentee and mentor
@@ -61,3 +105,5 @@ def calculate_diff(m):
   l.sort(key=attrgetter('r'), reverse=True)
   return [x[1] for x in l]
   #can also return list of tuples(ratio, mentor)
+
+
