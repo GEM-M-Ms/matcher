@@ -22,7 +22,8 @@ Bus_mentors = Mentor.objects.raw('SELECT * FROM matching_mentee WHERE Career_Fie
 #diff between mentee and mentor
 
   matching_fields = [
-  ('Carrier', 'Industry', 1.),
+  ('Career','Current Industry', 1.),
+  ('Career Other','Current Industry', 1.),
   ('Hobbies', 'Hobbies', 0.5),
   ('Barriers', 'Barriers', 0.5),
   ('Describe Self','Describe Self',0.5),
