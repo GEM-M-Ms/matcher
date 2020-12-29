@@ -60,19 +60,20 @@ industry_types = [
   ('LAW_ENFIRCEMENT',law_enforcement_jobs),
   ('SPORTS_FITNESS',sports_fitness_jobs),
   ('INDUSTRIAL',industrial_production_jobs),
-  ('MISC',misc_jobs)
+  ('MISC',misc_jobs),
+]
 
 
 #diff between mentee and mentor
 
-  matching_fields = [
+matching_fields = [
   ('Career','Current Industry', 1.),
   ('Career Other','Current Industry', 1.),
   ('Hobbies', 'Hobbies', 0.5),
   ('Barriers', 'Barriers', 0.5),
   ('Describe Self','Describe Self',0.5),
-  ('Town','Town',0.2),
-  ('Etnicity','Etnicity',0.1),
+  ('City/Town (City of Toronto, Durham, Halton, Peel, York)','Town',0.2),
+  ('Ethnicity','Ethnicity',0.1),
   ('Religion', 'Religion', 0.1),
 ]
 
