@@ -2,6 +2,7 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 from collections import namedtuple
 from operator import  attrgetter
+import re
 
 from .models import Mentee, Mentor, MatchConfig
 
@@ -68,7 +69,6 @@ industry_types = [
 
 matching_fields = [
   ('Career','Current Industry', 1.),
-  ('Career Other','Current Industry', 1.),
   ('Hobbies', 'Hobbies', 0.5),
   ('Barriers', 'Barriers', 0.5),
   ('Describe Self','Describe Self',0.5),
@@ -87,6 +87,7 @@ def ensure_match_config():
 def calculate_diff(m):
   menteeAttr = m.other_attributes
   matchConfigs = ensure_match_config()
+
   l = []
   for mr in Mentor.objects.all():
     mentor_ratio=0
@@ -95,7 +96,15 @@ def calculate_diff(m):
     for tpl in matchConfigs:
       menteeValue = menteeAttr[tpl.mentee_column_name]
       mentorValue = mentorAttr[tpl.mentor_column_name]
-      ratio=fuzz.token_set_ratio(menteeValue,mentorValue)
+
+      ratio=0
+      #check for absent value
+      if isNotBlank(menteeValue) and isNotBlank(mentorValue):
+        #atm check that mentor carreer matches one of mentee
+        if type(mentorValue) == 'str' and type(menteeValue) == 'list':
+          ratio=find_one_entry_in_list(mentorValue,menteeValue)
+        else:
+          ratio=fuzz.token_set_ratio(mentorValue,menteeValue)
       mentor_ratio+=ratio*tpl.weight
 
     mentor_ratio/= len(matchConfigs)
@@ -107,4 +116,17 @@ def calculate_diff(m):
   return [x[1] for x in l]
   #can also return list of tuples(ratio, mentor)
 
+def isNotBlank (s):
+  return bool([re.sub('[^a-zA-Z0-9]+', '', _) for _ in s])
 
+#rate would be 100 or 0
+def find_one_entry_in_list (mentorValue,menteeValue):
+  #fix mismatch: menteeValue=['Education', 'Writing & Editing', 'Law (Practice)'] mentorValue=Law Practice mentor=12 12
+  mteeValue=normalize(menteeValue)
+  if mentorValue in mteeValue:
+    return 100
+  else:
+    return 0
+
+def normalize(s):
+  return [re.sub('[^a-zA-Z0-9 ]+', '', _) for _ in s]
