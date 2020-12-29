@@ -21,9 +21,14 @@ Bus_mentors = Mentor.objects.raw('SELECT * FROM matching_mentee WHERE Career_Fie
 
 #diff between mentee and mentor
 
-matching_fields = [
-  ('Hobbies', 'Hobbies', 1.),
-  ('Barriers', 'Barriers', 1.),
+  matching_fields = [
+  ('Carrier', 'Industry', 1.),
+  ('Hobbies', 'Hobbies', 0.5),
+  ('Barriers', 'Barriers', 0.5),
+  ('Describe Self','Describe Self',0.5),
+  ('Town','Town',0.2),
+  ('Etnicity','Etnicity',0.1),
+  ('Religion', 'Religion', 0.1),
 ]
 
 def ensure_match_config():
