@@ -86,7 +86,6 @@ def ensure_match_config():
 
 def calculate_diff(m):
   menteeAttr = m.other_attributes
-  print(menteeAttr)
   matchConfigs = ensure_match_config()
 
   l = []
@@ -124,7 +123,6 @@ def isNotBlank (s):
 def find_one_entry_in_list (mentorValue,menteeValue):
   #fix mismatch: menteeValue=['Education', 'Writing & Editing', 'Law (Practice)'] mentorValue=Law Practice mentor=12 12
   mteeValue=normalize(menteeValue)
-  print(mteeValue)
   if mentorValue in mteeValue:
     return 100
   else:
