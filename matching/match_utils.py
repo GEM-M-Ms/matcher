@@ -128,18 +128,5 @@ def find_one_entry_in_list (mentorValue,menteeValue):
   else:
     return 0
 
-def count_entries_in_mentee(mentorValue,menteeValue):
-  mteeValue = normalize(menteeValue)
-  mtorValue = normalize(mentorValue)
-  print(mteeValue)
-  print(mtorValue)
-  count=0.
-  for w in mtorValue:
-    if w in mteeValue:
-      count+=1.
-  count = count*100/mtorValue
-  print (f"count={count} mteeValue={mteeValue} mtorValue={mtorValue}")
-  return count
-
 def normalize(s):
   return [re.sub('[^a-zA-Z0-9 ]+', '', _) for _ in s]
