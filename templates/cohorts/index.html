@@ -1,5 +1,10 @@
 {% extends "base_generic.html" %}
 
+{% block sidebar %}
+<a href="{% url 'admin:matching_cohort_add' %}">Add Cohort</a>
+<a href="#">Criteria Settings</a>
+{% endblock %}
+
 {% block content %}
 
 <div class="cohorts">

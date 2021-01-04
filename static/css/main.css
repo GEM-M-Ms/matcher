@@ -98,3 +98,16 @@ h1.title {
 .cohort span {
   color: var(--main-grey-color);
 }
+
+.unmatched {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.unmatched-mentees, .unmatched-mentors {
+  flex: 50%;
+}
+
+.unmatched-form {
+  flex: 100%;
+}
