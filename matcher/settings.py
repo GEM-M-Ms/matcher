@@ -103,13 +103,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_REDIRECT_URL = "/"
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #EMAIL_BACKEND = "django_mailgun.MailgunBackend"
 #MAILGUN_ACCESS_KEY = "replace"
 #MAILGUN_SERVER_NAME = "replace"
 #DEFAULT_FROM_EMAIL = "replace"
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

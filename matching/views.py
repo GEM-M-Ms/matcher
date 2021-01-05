@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Cohort, Mentee, Mentor, Match
 from .utils import handle_mentee_files, handle_mentor_files
-from .forms import UploadFileForm
+from .forms import MatchForm, UploadFileForm
 
 @login_required
 def index(request):
@@ -22,6 +22,14 @@ def show_matches(request, cohort_id):
     cohort = get_object_or_404(Cohort, pk=cohort_id)
     matches = Match.objects.filter(cohort=cohort)
     return render(request, "cohorts/matches.html", {"cohort": cohort, "matches": matches})
+
+@login_required
+def new_match(request, cohort_id):
+    cohort = get_object_or_404(Cohort, pk=cohort_id)
+    unmatched_mentees = Mentee.objects.filter(cohort=cohort, match__mentee__isnull=True)
+    unmatched_mentors = Mentor.objects.filter(cohort=cohort, match__mentor__isnull=True)
+    form = MatchForm()
+    return render(request, "cohorts/new_match.html", {"unmatched_mentees": unmatched_mentees, "unmatched_mentors": unmatched_mentors, "cohort": cohort, "form": form})
 
 @login_required
 def show_mentees(request, cohort_id):

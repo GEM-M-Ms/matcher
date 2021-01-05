@@ -23,17 +23,18 @@
     <tbody>
       {% for match in matches %}
       <tr>
-        <td>{{ mentee.id }}</td>
-        <td>{{ mentee.mentor }}</td>
-        <td>{{ mentee.mentee }}</td>
-        <td>{{ mentee.status }}</td>
-        <td>{{ mentee.approver }}</td>
+        <td>{{ match.id }}</td>
+        <td>{{ match.mentor }}</td>
+        <td>{{ match.mentee }}</td>
+        <td>{{ match.status }}</td>
+        <td>{{ match.approver }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
   {% else %}
   <h2>No matches found.</h2>
+  <a href="{% url 'new_match' cohort.id %}">Create a new Match</a>
   {% endif %}
 </div>
 {% endblock %}
