@@ -10,52 +10,7 @@
 
 {% block content %}
 <div class="unmatched">
-  <div class="unmatched-mentees">
-    <h1 class="title">Unmatched Mentees</h1>
-    {% if unmatched_mentees %}
-    <table>
-      <thead>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-      </thead>
-      <tbody>
-        {% for unmatched_mentee in unmatched_mentees %}
-        <tr>
-          <td>{{ unmatched_mentee.id }}</td>
-          <td>{{ unmatched_mentee.name }}</td>
-          <td>{{ unmatched_mentee.email }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <h2>No unmmatched mentees found.</h2>
-    {% endif %}
-  </div>
-
-  <div class="unmatched-mentors">
-    <h1 class="title">Unmatched Mentors</h1>
-    {% if unmatched_mentors %}
-    <table>
-      <thead>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-      </thead>
-      <tbody>
-        {% for unmatched_mentor in unmatched_mentors %}
-        <tr>
-          <td>{{ unmatched_mentor.name }}</td>
-          <td>{{ unmatched_mentor.email }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <h2>No unmmatched mentors found.</h2>
-    {% endif %}
-  </div>
+  <h1 class="title">Unmatched Candidates</h1>
 
   <div class="unmatched-form">
     <form method="post" enctype="multipart/form-data">
