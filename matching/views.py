@@ -26,10 +26,18 @@ def show_matches(request, cohort_id):
 @login_required
 def new_match(request, cohort_id):
     cohort = get_object_or_404(Cohort, pk=cohort_id)
-    unmatched_mentees = Mentee.objects.filter(cohort=cohort, match__mentee__isnull=True)
-    unmatched_mentors = Mentor.objects.filter(cohort=cohort, match__mentor__isnull=True)
-    form = MatchForm()
-    return render(request, "cohorts/new_match.html", {"unmatched_mentees": unmatched_mentees, "unmatched_mentors": unmatched_mentors, "cohort": cohort, "form": form})
+
+    if request.method == "POST":
+        form = MatchForm(request.POST, cohort=cohort)
+
+        if form.is_valid():
+            match = form.save(commit=False)
+            match.approver = request.user
+            match.cohort = cohort
+            match.save()
+            return redirect(reverse("show_matches", kwargs={'cohort_id': cohort.id}))
+    form = MatchForm(cohort=cohort)
+    return render(request, "cohorts/new_match.html", {"cohort": cohort, "form": form})
 
 @login_required
 def show_mentees(request, cohort_id):
