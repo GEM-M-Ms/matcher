@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block sidebar %}
+<a href="{% url 'index_cohort' %}">All Cohorts</a>
+<a href="#">Criteria Settings</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="cohorts">
+  <h1 class="title">Create a Cohort</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Match</button>
+  </form>
+</div>
+
+{% endblock %}

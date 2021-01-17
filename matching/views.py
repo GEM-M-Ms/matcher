@@ -2,9 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+
 from .models import Cohort, Mentee, Mentor, Match
 from .utils import handle_mentee_files, handle_mentor_files
-from .forms import MatchForm, UploadFileForm
+from .forms import MatchForm, CohortForm
 
 @login_required
 def index(request):
@@ -16,6 +18,23 @@ def show(request, cohort_id):
     cohort = get_object_or_404(Cohort, pk=cohort_id)
     request.session['cohort_id'] = cohort_id
     return render(request, "cohorts/show.html", {"cohort": cohort})
+
+@login_required
+def create(request):
+    if request.method == "POST":
+        form = CohortForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            # import pdb; pdb.set_trace()
+            with transaction.atomic():
+                cohort = form.save()
+                handle_mentee_files(form.cleaned_data['mentees_file'], cohort)
+                handle_mentor_files(form.cleaned_data['mentors_file'], cohort)
+                messages.success(request, 'Cohort created succesfully.')
+                return redirect(reverse("show_cohort", kwargs={'cohort_id': cohort.id}))
+
+    form = CohortForm()
+    return render(request, "cohorts/create.html", {"form": form})
 
 @login_required
 def show_matches(request, cohort_id):
@@ -50,22 +69,3 @@ def show_mentors(request, cohort_id):
     cohort = get_object_or_404(Cohort, pk=cohort_id)
     mentors = Mentor.objects.filter(cohort=cohort)
     return render(request, "cohorts/mentors.html", {"cohort": cohort, "mentors": mentors})
-
-@login_required
-def upload(request, cohort_id):
-    if request.method == "POST":
-        form = UploadFileForm(request.POST, request.FILES)
-        cohort = get_object_or_404(Cohort, pk=cohort_id)
-
-        if form.is_valid():
-            if "mentee" in request.POST:
-                handle_mentee_files(request.FILES["file"], cohort)
-            elif "mentor" in request.POST:
-                handle_mentor_files(request.FILES["file"], cohort)
-            messages.success(request, 'File successfully uploaded.')
-            return redirect(reverse("upload", kwargs={'cohort_id': cohort.id}))
-        else:
-            messages.error(request, "File is not CSV type")
-    else:
-        form = UploadFileForm()
-    return render(request, "forms/upload.html", {"form": form})

@@ -2,9 +2,13 @@ from django import forms
 from .models import Document, Match, Mentor, Mentee, Cohort
 
 
-class UploadFileForm(forms.Form):
-    model = Document
-    file = forms.FileField()
+class CohortForm(forms.ModelForm):
+    mentors_file = forms.FileField(required=True, widget=forms.FileInput(attrs={'accept': ".csv"}))
+    mentees_file = forms.FileField(required=True, widget=forms.FileInput(attrs={'accept': ".csv"}))
+
+    class Meta:
+        model = Cohort
+        fields = ['title']
 
 
 class MatchForm(forms.ModelForm):
