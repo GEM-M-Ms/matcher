@@ -25,7 +25,6 @@ def create(request):
         form = CohortForm(request.POST, request.FILES)
 
         if form.is_valid():
-            # import pdb; pdb.set_trace()
             with transaction.atomic():
                 cohort = form.save()
                 handle_mentee_files(form.cleaned_data['mentees_file'], cohort)

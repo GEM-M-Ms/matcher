@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.forms",
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "matcher.urls"
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 TEMPLATES = [
     {

@@ -11,6 +11,9 @@
 <div class="matches">
   <h1 class="title">{{ cohort.title }}</h1>
 
+  <a href="{% url 'new_match' cohort.id %}">Create a new Match</a>
+
+  {% if cohort.match_set.all %}
   <table>
     <thead>
       <th>Mentee</th>
@@ -26,9 +29,12 @@
         <td>{{ match.get_status_display }}</td>
         <td>{{ match.approver.username }}</td>
       </tr>
+      {% empty %}
+      No matches found.
       {% endfor %}
     </tbody>
   </table>
+  {% endif %}
 </div>
 
 {% endblock %}
