@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from matching.views import index
+from matching.views import index, create
 
 urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls),
     path("", index, name="index_cohort"),
+    path("create", create, name="create_cohort"),
     path("<int:cohort_id>/", include("matching.urls")),
 ]
