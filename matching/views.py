@@ -71,8 +71,8 @@ def show_mentors(request, cohort_id):
     return render(request, "cohorts/mentors.html", {"cohort": cohort, "mentors": mentors})
 
 @login_required
-def sorted_mentors(request, cohort_id):
+def sorted_mentors(request, cohort_id, mentee_id):
     cohort = get_object_or_404(Cohort, pk=cohort_id)
-    #hardcoded mentee atttributes atm
-    mentors=get_sorted_mentors_for_mentee("15 15",cohort_id)
-    return render(request, "cohorts/mentors.html", {"cohort": cohort, "mentors": mentors})
+    mentee = get_object_or_404(Mentee, pk=mentee_id)
+    mentors=get_sorted_mentors_for_mentee(mentee,cohort)
+    return render(request, "cohorts/mentors.html", {"cohort": cohort, "mentee" : mentee, "mentors": mentors})

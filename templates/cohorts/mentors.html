@@ -5,13 +5,13 @@
 <a href="{% url 'show_matches' cohort.id %}">Matches</a>
 <a href="{% url 'show_mentees' cohort.id %}">Mentees</a>
 <a href="{% url 'show_mentors' cohort.id %}">Mentors</a>
-<a href="{% url 'sorted_mentors' cohort.id %}">Sorted Mentors</a>
+<a href="{% url 'sorted_mentors' cohort.id mentee.id %}">Sorted Mentors</a>
 <a href="#">Criteria Settings</a>
 {% endblock %}
 
 {% block content %}
 <div class="mentors">
-  <h1 class="title">Mentors for Cohort {{ cohort.title }}</h1>
+  <h1 class="title">Mentors for Cohort {{ cohort.title }} And Mentee {{mentee}}</h1>
   {% if mentors %}
   <table>
     <thead>
