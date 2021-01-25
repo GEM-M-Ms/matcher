@@ -3,6 +3,7 @@ import io
 import re
 
 from .models import Mentee, Mentor
+from .match_utils import calculate_diff
 
 def convert_to_model_params(uploaded_file):
     file_bytes = uploaded_file.read().decode('utf-8')
@@ -34,6 +35,7 @@ def handle_mentee_files(uploaded_file, cohort):
         mentee = Mentee(name=name, email=email, cohort=cohort, other_attributes=attributes)
         mentee.save()
 
+
 def handle_mentor_files(uploaded_file, cohort):
     records = convert_to_model_params(uploaded_file)
 
@@ -41,4 +43,13 @@ def handle_mentor_files(uploaded_file, cohort):
         name, email, attributes = record
         mentor = Mentor(name=name, email=email, cohort=cohort, other_attributes=attributes)
         mentor.save()
+
+def get_sorted_mentors_for_mentee(mentee_name,cohort):
+    mentors = Mentor.objects.filter(cohort=cohort)
+    mentee = Mentee.objects.filter(name__contains=mentee_name)
+    print(mentee.count)
+    the_mentee=mentee[0]
+    print(the_mentee)
+    print(mentors)
+    return calculate_diff(the_mentee,mentors)
 

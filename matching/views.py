@@ -7,6 +7,7 @@ from django.db import transaction
 from .models import Cohort, Mentee, Mentor, Match
 from .utils import handle_mentee_files, handle_mentor_files
 from .forms import MatchForm, CohortForm
+from .utils import get_sorted_mentors_for_mentee
 
 @login_required
 def index(request):
@@ -67,4 +68,11 @@ def show_mentees(request, cohort_id):
 def show_mentors(request, cohort_id):
     cohort = get_object_or_404(Cohort, pk=cohort_id)
     mentors = Mentor.objects.filter(cohort=cohort)
+    return render(request, "cohorts/mentors.html", {"cohort": cohort, "mentors": mentors})
+
+@login_required
+def sorted_mentors(request, cohort_id):
+    cohort = get_object_or_404(Cohort, pk=cohort_id)
+    #hardcoded mentee atttributes atm
+    mentors=get_sorted_mentors_for_mentee("15 15",cohort_id)
     return render(request, "cohorts/mentors.html", {"cohort": cohort, "mentors": mentors})
