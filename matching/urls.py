@@ -8,6 +8,6 @@ urlpatterns = [
     path("matches/delete", views.delete_match, name="delete_match"),
     path("mentees", views.show_mentees, name="show_mentees"),
     path("mentors", views.show_mentors, name="show_mentors"),
-    path("sorted_mentors", views.sorted_mentors, name="sorted_mentors")
+    path("sorted_mentors", views.sorted_mentors, name="sorted_mentors"),
     path("export", views.export_matches, name="export_matches"),
 ]
