@@ -105,9 +105,35 @@ h1.title {
 }
 
 .unmatched-mentees, .unmatched-mentors {
-  flex: 50%;
+  width: 50%;
+}
+
+#id_mentee li, #id_mentor li {
+  list-style: none;
+}
+
+.reveal-if-active {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+input[type="radio"]:checked ~ .reveal-if-active {
+  opacity: 1;
+  max-height: 100%; /* little bit of a magic number :( */
+  overflow: visible;
 }
 
 .unmatched-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.unmatched-form dl {
+  max-width: 50%;
+}
+
+.unmatched-form .submit {
   flex: 100%;
+  padding: 20px;
 }

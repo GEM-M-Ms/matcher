@@ -12,13 +12,21 @@
 {% block content %}
 <div class="unmatched">
   <h1 class="title">Unmatched Candidates</h1>
+  <form method="post" enctype="multipart/form-data" class="unmatched-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
 
-  <div class="unmatched-form">
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
+    <div class="unmatched-mentees">
+      <label>Mentees</label>
+      {{ form.mentee }}
+    </div>
+    <div class="unmatched-mentors">
+      <label>Mentors</label>
+      {{ form.mentor }}
+    </div>
+    <div class="submit">
       <button type="submit">Create Match</button>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>
 {% endblock %}
