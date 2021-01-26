@@ -8,4 +8,5 @@ urlpatterns = [
     path("matches", views.show_matches, name="show_matches"),
     path("mentees", views.show_mentees, name="show_mentees"),
     path("mentors", views.show_mentors, name="show_mentors"),
+    path("sorted_mentors",views.sorted_mentors, name="sorted_mentors")
 ]

@@ -24,4 +24,5 @@ urlpatterns = [
     path("", index, name="index_cohort"),
     path("create", create, name="create_cohort"),
     path("<int:cohort_id>/", include("matching.urls")),
+    path("<int:cohort_id>/<int:mentee_id>/", include("matching.urls")),
 ]

@@ -84,12 +84,12 @@ def ensure_match_config():
       matchEntry.save()
   return MatchConfig.objects.all()
 
-def calculate_diff(m):
+def calculate_diff(m,list_of_m):
   menteeAttr = m.other_attributes
   matchConfigs = ensure_match_config()
 
   l = []
-  for mr in Mentor.objects.all():
+  for mr in list_of_m:
     mentor_ratio=0
     mentorAttr = mr.other_attributes
 
@@ -100,7 +100,7 @@ def calculate_diff(m):
       ratio=0
       #check for absent value
       if isNotBlank(menteeValue) and isNotBlank(mentorValue):
-        #atm check that mentor carreer matches one of mentee
+        #atm check that mentor career matches one of mentee
         if type(mentorValue) == 'str' and type(menteeValue) == 'list':
           ratio=find_one_entry_in_list(mentorValue,menteeValue)
         else:
