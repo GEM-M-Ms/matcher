@@ -1,3 +1,8 @@
-{% if widget.wrap_label %}<label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{% endif %}{% include "django/forms/widgets/input.html" %}{% if widget.wrap_label %} {{ widget.label }}</label>{% endif %}
-
-<code>{{ widget.other_attributes }}</code>
+{% if widget.wrap_label %}<label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{% endif %}{% include "django/forms/widgets/input.html" %}{% if widget.wrap_label %} {{ widget.label }}
+    <dl class="reveal-if-active">
+    {% for key, val in widget.other_attributes.items %}
+        <dt>{{ key }}</dt>
+        <dd>{{ val }}</dd>
+    {% endfor %}
+    </dl>
+</label>{% endif %}
