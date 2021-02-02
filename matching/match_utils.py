@@ -99,8 +99,8 @@ def calculate_diff(m,list_of_m):
 
       ratio=0
       #check for absent value
-      if isNotBlank(menteeValue) and isNotBlank(mentorValue):
-        #atm check that mentor career matches one of mentee
+      if is_not_blank(menteeValue) and is_not_blank(mentorValue):
+        # atm check that mentor career matches one of mentee
         if type(mentorValue) == 'str' and type(menteeValue) == 'list':
           ratio=find_one_entry_in_list(mentorValue,menteeValue)
         else:
@@ -116,7 +116,7 @@ def calculate_diff(m,list_of_m):
   return [x[1] for x in l]
   #can also return list of tuples(ratio, mentor)
 
-def isNotBlank (s):
+def is_not_blank(s):
   return bool([re.sub('[^a-zA-Z0-9]+', '', _) for _ in s])
 
 #rate would be 100 or 0
