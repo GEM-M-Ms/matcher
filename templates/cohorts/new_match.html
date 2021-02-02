@@ -29,3 +29,40 @@
   </form>
 </div>
 {% endblock %}
+
+
+{% block scripts %}
+<script>
+  $(document).ready(function(){
+    $('#id_mentee :radio').each((index, elem) => {
+      elem.addEventListener('change', function() {
+        let mentee = this.value;
+        let cohort = "{{ cohort.id }}";
+        let sortedMentors = [];
+
+        fetch(`/${cohort}/sorted_mentors/${mentee}`)
+          .then(response => response.json())
+          .then(data => {
+            data["mentors"].forEach(sortedId => {
+              $('#id_mentor li').each((index, elem) => {
+                let radioButton = $(elem).find(':radio');
+                let radioValue = radioButton.val();
+                radioButton.prop('checked', false);
+
+                if (radioValue == sortedId) {
+                  sortedMentors.push(elem);
+                }
+              });
+            });
+
+            // replace existing mentors elements with sorted elements
+            $('#id_mentor').empty();
+            sortedMentors.forEach(mentorElement => {
+              $('#id_mentor').append(mentorElement);
+            });
+          });
+      });
+    });
+  });
+</script>
+{% endblock %}

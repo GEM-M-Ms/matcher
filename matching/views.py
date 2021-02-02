@@ -2,10 +2,11 @@ import csv
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.forms.models import model_to_dict
 
 from .models import Cohort, Mentee, Mentor, Match
 from .utils import handle_mentee_files, handle_mentor_files
@@ -80,8 +81,8 @@ def show_mentors(request, cohort_id):
 def sorted_mentors(request, cohort_id, mentee_id):
     cohort = get_object_or_404(Cohort, pk=cohort_id)
     mentee = get_object_or_404(Mentee, pk=mentee_id)
-    mentors=get_sorted_mentors_for_mentee(mentee, cohort)
-    return render(request, "cohorts/mentors.html", {"cohort": cohort, "mentee" : mentee, "mentors": mentors})
+    mentors = [model.id for model in get_sorted_mentors_for_mentee(mentee, cohort)]
+    return JsonResponse({"mentors": mentors})
 
 @login_required
 def export_matches(request, cohort_id):
@@ -89,7 +90,7 @@ def export_matches(request, cohort_id):
     matches = Match.objects.filter(cohort=cohort)
 
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f"attachment; filename='cohort_{cohort.title}.csv'"
+    response['Content-Disposition'] = f"attachment; filename={cohort.title}.csv"
 
     writer = csv.writer(response)
     writer.writerow(['Mentee Name', 'Mentee Email Address', 'Mentor Name', 'Mentor Email Address', 'Status', 'Approver'])
