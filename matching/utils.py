@@ -46,7 +46,4 @@ def handle_mentor_files(uploaded_file, cohort):
 
 def get_sorted_mentors_for_mentee(mentee,cohort):
     mentors = Mentor.objects.filter(cohort=cohort)
-    print(mentee)
-    print(mentors)
     return calculate_diff(mentee,mentors)
-
