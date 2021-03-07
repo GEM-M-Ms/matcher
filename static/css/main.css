@@ -137,3 +137,17 @@ input[type="radio"]:checked ~ .reveal-if-active {
   flex: 100%;
   padding: 20px;
 }
+
+span.matched {
+  display: inline;
+  padding: .2em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+  background-color: #d9534f;
+}
