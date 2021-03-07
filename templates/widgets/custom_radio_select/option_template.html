@@ -1,4 +1,5 @@
 {% if widget.wrap_label %}<label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{% endif %}{% include "django/forms/widgets/input.html" %}{% if widget.wrap_label %} {{ widget.label }}
+    {% if widget.matched %}<span class="matched">Matched</span>{% endif %}
     <dl class="reveal-if-active">
     {% for key, val in widget.other_attributes.items %}
         <dt>{{ key }}</dt>

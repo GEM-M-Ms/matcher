@@ -1,3 +1,5 @@
+import collections
+
 from django import forms
 from .models import Document, Match, Mentor, Mentee, Cohort
 
@@ -19,7 +21,10 @@ class CustomRadioSelect(forms.RadioSelect):
         for option in context['widget']['optgroups']:
             _, opts, _ = option
             for opt in opts:
-                opt['other_attributes'] = opt['value'].instance.other_attributes
+                if opt['value'].instance.match_set.all().first():
+                    opt['matched'] = True
+                sorted_attrs = collections.OrderedDict(sorted(opt['value'].instance.other_attributes.items()))
+                opt['other_attributes'] = sorted_attrs
         return context
 
 class MatchForm(forms.ModelForm):
@@ -35,6 +40,6 @@ class MatchForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         cohort = kwargs.pop('cohort')
         super().__init__(*args, **kwargs)
-        self.fields['mentor'].queryset = Mentor.objects.filter(cohort=cohort, match__mentor__isnull=True)
-        self.fields['mentee'].queryset = Mentee.objects.filter(cohort=cohort, match__mentee__isnull=True)
+        self.fields['mentor'].queryset = Mentor.objects.filter(cohort=cohort)
+        self.fields['mentee'].queryset = Mentee.objects.filter(cohort=cohort)
 
