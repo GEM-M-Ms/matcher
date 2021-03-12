@@ -10,4 +10,5 @@ urlpatterns = [
     path("mentors", views.show_mentors, name="show_mentors"),
     path("sorted_mentors/<int:mentee_id>", views.sorted_mentors, name="sorted_mentors"),
     path("export", views.export_matches, name="export_matches"),
+    path("criteria", views.criteria, name="set_criteria"),
 ]
