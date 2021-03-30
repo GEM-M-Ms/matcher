@@ -66,7 +66,6 @@ industry_types = [
 
 
 #diff between mentee and mentor
-
 matching_fields = [
   ('Career','Current Industry', 1.),
   ('Hobbies', 'Hobbies', 0.5),
@@ -86,7 +85,7 @@ def ensure_match_config():
 
 def calculate_diff(m,list_of_m):
   menteeAttr = m.other_attributes
-  matchConfigs = ensure_match_config()
+  matchConfigs = MatchConfig.objects.all()#ensure_match_config()
 
   l = []
   for mr in list_of_m:
@@ -107,7 +106,7 @@ def calculate_diff(m,list_of_m):
           ratio=fuzz.token_set_ratio(mentorValue,menteeValue)
       mentor_ratio+=ratio*tpl.weight
 
-    mentor_ratio/= len(matchConfigs)
+    mentor_ratio /= len(matchConfigs)
     Entry = namedtuple('Entry','r m')
     entry = Entry(mentor_ratio,mr)
     l.append(entry)
