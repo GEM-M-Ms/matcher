@@ -119,3 +119,6 @@ ratio=100*weight
  ```
  ratio=0*weight
  ```
+ 
+ Ensure criteria exists when creating a new match. 
+ Should criteria is not defined, otherwise mantors list wont be sorted properly for creating a new match.
