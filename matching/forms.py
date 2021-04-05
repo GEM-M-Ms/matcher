@@ -1,7 +1,7 @@
 import collections
 
 from django import forms
-from .models import Document, Match, Mentor, Mentee, Cohort
+from .models import Document, Match, Mentor, Mentee, Cohort, MatchConfig
 
 
 class CohortForm(forms.ModelForm):
@@ -42,4 +42,12 @@ class MatchForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['mentor'].queryset = Mentor.objects.filter(cohort=cohort)
         self.fields['mentee'].queryset = Mentee.objects.filter(cohort=cohort)
+
+class CriteriaForm(forms.ModelForm):
+
+    class Meta:
+        model = MatchConfig
+        fields = ['mentee_column_name', 'mentor_column_name','weight' ]
+
+
 

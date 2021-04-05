@@ -8,9 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.forms.models import model_to_dict
 
-from .models import Cohort, Mentee, Mentor, Match
+from .models import Cohort, Mentee, Mentor, Match, MatchConfig
 from .utils import handle_mentee_files, handle_mentor_files
-from .forms import MatchForm, CohortForm
+from .forms import MatchForm, CohortForm, CriteriaForm
 from .utils import get_sorted_mentors_for_mentee
 
 @login_required
@@ -57,6 +57,20 @@ def new_match(request, cohort_id):
     return render(request, "cohorts/new_match.html", {"cohort": cohort, "form": form})
 
 @login_required
+def criteria(request, cohort_id):
+    if request.method == "POST":
+        form = CriteriaForm(request.POST)
+
+        if form.is_valid():
+             with transaction.atomic():
+                criteria = MatchConfig(mentee_column_name=form.cleaned_data['mentee_column_name'], mentor_column_name=form.cleaned_data['mentor_column_name'], weight=form.cleaned_data['weight'])
+                criteria.save()
+                messages.success(request, 'Critera created succesfully.')
+
+    form = CriteriaForm()
+    return render(request, "cohorts/set_criteria.html", {"cohort_id": cohort_id, "form": form})
+
+@login_required
 def delete_match(request, cohort_id):
     if request.method == "POST":
         params = request.POST.dict()
@@ -98,3 +112,4 @@ def export_matches(request, cohort_id):
         writer.writerow([match.mentee.name, match.mentee.email, match.mentor.name, match.mentor.email, match.get_status_display(), match.approver])
 
     return response
+
