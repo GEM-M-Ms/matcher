@@ -14,16 +14,16 @@
   {% if matches %}
   <table>
     <thead>
-      <th>Mentor</th>
       <th>Mentee</th>
+      <th>Mentor</th>
       <th>Status</th>
       <th>Approver</th>
     </thead>
     <tbody>
       {% for match in matches %}
       <tr>
-        <td>{{ match.mentor }}</td>
         <td>{{ match.mentee }}</td>
+        <td>{{ match.mentor }}</td>
         <td>{{ match.status }}</td>
         <td>{{ match.approver }}</td>
         <td>
