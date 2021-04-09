@@ -73,7 +73,7 @@ You can reformat the code by running `black .` in the `matcher` directory.
 
 Criteria should exist prior to creating any match for the cohort. Criteria consists from mentee column name, Mentor Column Name, and weight .
 Where weight is a ratio between 0.1 - 1.0. 
-Criretia used for comparison testing was:
+Criteria used for comparison testing was:
 ```
 ('Career','Current Industry', 1.),
   ('Hobbies', 'Hobbies', 0.5),
@@ -85,7 +85,7 @@ Criretia used for comparison testing was:
 
 ```
 
-For every columnc match (eg 'Barriers' - 'Barriers'), ratio of text difference is calculated (0-100%). Then ratio is multiplied by weight ratio
+For every column match (eg 'Barriers' - 'Barriers'), ratio of text difference is calculated (0-100%). Then ratio is multiplied by weight ratio
 ```aidl
 mentor_ratio_for_the_column=ratio*weight
 ```
